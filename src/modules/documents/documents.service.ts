@@ -30,7 +30,7 @@ export class DocumentsService {
     });
     await this.em.persistAndFlush(document);
 
-    const chunks = this.chunkingService.chunk(content, 50);
+    const chunks = this.chunkingService.chunk(content, 1);
 
     console.log('chunks', chunks.length);
 
