@@ -57,4 +57,27 @@ export class DocumentsService {
       chunks: chunks.length,
     };
   }
+
+  async search(question: string) {
+    const questionEmbedding =
+      await this.embeddingsService.createEmbedding(question);
+
+    const results = await this.em.getConnection().execute(
+      `
+      SELECT
+        id,
+        document_id,
+        content,
+        chunk_index,
+        1 - (embedding <=> ?::vector) AS similarity
+      FROM document_chunk
+      WHERE embedding IS NOT NULL
+      ORDER BY embedding <=> ?::vector
+      LIMIT 5
+      `,
+      [JSON.stringify(questionEmbedding), JSON.stringify(questionEmbedding)],
+    );
+
+    return results;
+  }
 }
