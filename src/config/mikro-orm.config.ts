@@ -30,13 +30,13 @@ export const mikroOrmConfig: MikroOrmModuleAsyncOptions = {
       ...ormConfig,
       host: configService.get<string>('DB_HOST') ?? 'localhost',
       port: Number(configService.get<string>('DB_PORT') ?? 5433),
-      dbName: configService.get<string>('DB_NAME') ?? 'cyberian',
+      dbName: configService.get<string>('DB_NAME') ?? 'rag',
       user: configService.get<string>('DB_USER') ?? 'postgres',
       password: configService.get<string>('DB_PASSWORD') ?? 'postgres',
       ensureDatabase: true,
       registerRequestContext: true,
 
-      // allowGlobalContext: true,
+      allowGlobalContext: true,
     };
   },
 };

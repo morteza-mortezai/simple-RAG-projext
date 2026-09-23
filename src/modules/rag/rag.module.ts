@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { RagService } from './rag.service';
-import { RagController } from './rag.controller';
 import { ChunkingService } from './chunking.service';
 
 @Module({
-  controllers: [RagController],
+  controllers: [],
   providers: [RagService, ChunkingService],
   exports: [RagService, ChunkingService],
 })

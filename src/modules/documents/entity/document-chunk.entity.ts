@@ -1,4 +1,5 @@
 import { Entity, PrimaryKey, Property, ManyToOne } from '@mikro-orm/core';
+import { VectorType } from '../types/vector.type';
 
 import { Document } from './document.entity';
 
@@ -17,7 +18,7 @@ export class DocumentChunk {
   chunkIndex!: number;
 
   @Property({
-    type: 'vector',
+    type: VectorType,
     length: 768,
     nullable: true,
   })
