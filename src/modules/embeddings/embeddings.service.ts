@@ -1,23 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import OpenAI from 'openai';
 
 @Injectable()
 export class EmbeddingsService {
-  private readonly client: OpenAI;
-
-  constructor(private readonly config: ConfigService) {
-    this.client = new OpenAI({
-      apiKey: this.config.getOrThrow('OPENAI_API_KEY'),
-    });
-  }
-
   async createEmbedding(text: string): Promise<number[]> {
-    const response = await this.client.embeddings.create({
-      model: 'text-embedding-3-small',
-      input: text,
+    const response = await fetch('http://localhost:11434/api/embeddings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'nomic-embed-text',
+        prompt: text,
+      }),
     });
 
-    return response.data[0].embedding;
+    if (!response.ok) {
+      throw new Error(`Ollama embedding failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data.embedding;
   }
 }
