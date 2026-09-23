@@ -1,11 +1,4 @@
-// src/documents/entities/document-chunk.entity.ts
-
-import {
-  Entity,
-  PrimaryKey,
-  Property,
-  ManyToOne,
-} from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, ManyToOne } from '@mikro-orm/core';
 
 import { Document } from './document.entity';
 
@@ -23,5 +16,10 @@ export class DocumentChunk {
   @Property()
   chunkIndex!: number;
 
-  // We'll add the embedding here shortly.
+  @Property({
+    type: 'vector',
+    length: 768,
+    nullable: true,
+  })
+  embedding?: number[];
 }

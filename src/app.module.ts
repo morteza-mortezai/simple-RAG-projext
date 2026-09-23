@@ -7,6 +7,9 @@ import { mikroOrmConfig } from './config/mikro-orm.config';
 import { AppController } from './app.controller';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { EmbeddingsModule } from './modules/embeddings/embeddings.module';
+import { ModuleModule } from './modules/rag/module/module.module';
+import { Module } from './modules/rag/.module';
+import { RagModule } from './modules/rag/rag.module';
 
 @Module({
   imports: [
@@ -23,6 +26,9 @@ import { EmbeddingsModule } from './modules/embeddings/embeddings.module';
     MikroOrmModule.forRootAsync(mikroOrmConfig),
     DocumentsModule,
     EmbeddingsModule,
+    ModuleModule,
+    Module,
+    RagModule,
   ],
   controllers: [AppController],
   providers: [],
