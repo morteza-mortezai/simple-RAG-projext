@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { EmbeddingsModule } from './modules/embeddings/embeddings.module';
 import { RagModule } from './modules/rag/rag.module';
+import { LlmModule } from './modules/llm/llm.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RagModule } from './modules/rag/rag.module';
     DocumentsModule,
     EmbeddingsModule,
     RagModule,
+    LlmModule,
   ],
   controllers: [AppController],
   providers: [],

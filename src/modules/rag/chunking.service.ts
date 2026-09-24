@@ -2,17 +2,17 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ChunkingService {
-  chunk(text: string, maxSentences = 1): string[] {
-    const sentences = text.match(/[^.!?]+[.!?]+/g) ?? [text];
+  chunk(text: string, chunkSize = 200, overlap = 40): string[] {
+    const words = text.trim().split(/\s+/);
+
     const chunks: string[] = [];
 
-    for (let i = 0; i < sentences.length; i += maxSentences) {
-      chunks.push(
-        sentences
-          .slice(i, i + maxSentences)
-          .map((s) => s.trim())
-          .join(' '),
-      );
+    for (let start = 0; start < words.length; start += chunkSize - overlap) {
+      const chunk = words.slice(start, start + chunkSize).join(' ');
+
+      if (chunk) {
+        chunks.push(chunk);
+      }
     }
 
     return chunks;
